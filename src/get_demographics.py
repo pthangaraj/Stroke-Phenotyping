@@ -1,15 +1,11 @@
+#By Phyllis Thangaraj (pt2281@columbia.edu), Nicholas Tatonetti Lab at Columbia University Irving Medical Center
+#Part of manuscript: "Comparative analysis, applications, and interpretation of electronic health record-based stroke phenotyping methods" 
+#This script prints out the demographics of all of the models' training sets
 import numpy as np
 import sys
 import scipy as sp
 from scipy.sparse import csr_matrix
 from collections import defaultdict
-#case=sys.argv[1]
-#control=sys.argv[2]
-#filename_mrns='train_mrns_merge_subwDemog_CID_1to1_dera_sou_raceeth_mergeset_noctrlicd_new_fixcv' + case + control + '.npy'
-#mrns=np.load(filename_mrns)
-#filename_mrn2label='train_mrn2label_merge_subwDemog_CID_1to1_dera_sou_raceeth_mergeset_noctrlicd_new_fixcv' + case + control + '.npy'
-#m2l=np.load(filename_mrn2label)
-#m2l=m2l[()]
 demo_counts=defaultdict(lambda: defaultdict(list))
 demo_freqs=defaultdict(lambda: defaultdict(list))
 cases=['G','G','G','G','G','T','T','T','T','T','C','C','C','C','C']
@@ -17,14 +13,14 @@ controls=['N','I','C','CI','R','N','I','C','CI','R','N','I','C','CI','R']
 for i in range(0,15):
     case=cases[i]
     control=controls[i]
-    filename_labels='train_labelswCID_1to1_cond_dera_sou_merge_raceeth_mergeset_noctrlicd_new_fixcv'+case+control+'.npy'
+    filename_labels={training_set labels filename}+case+control+'.npy'
     labels=np.load(filename_labels)
-    filename_e2i='events2colswCID_1to1_cond_dera_sou_merge_raceeth_mergeset_noctrlicd_new_fixcv'+case+control+'.npy'
+    filename_e2i={events2cols filename}+case+control+'.npy'
     e2c=np.load(filename_e2i)
     e2c=e2c[()]
-    filename_all='demo_events_merge_subwDemog_wCID_1to1_cond_dera_sou_raceeth_mergeset_noctrlicd_new_fixcv' + case + control + '.npy'
+    filename_all={demographics events filenames} + case + control + '.npy'
     demo_events=np.load(filename_all)
-    filename_mtrain='matrix_trainwCID_1to1_cond_dera_sou_merge_raceeth_mergeset_noctrlicd_new_fixcv' + case + control + '.npz'
+    filename_mtrain={training_set sparse matrix filename} + case + control + '.npz'
     matrix=sp.sparse.load_npz(filename_mtrain)
 
     demos_count=defaultdict(lambda: defaultdict(int))
@@ -50,6 +46,3 @@ for i in range(0,15):
 for c in demo_counts.keys():
     for d in demo_counts[c]:
 	print c,d,demo_counts[c][d],demo_freqs[c][d]
-#    for d in demos_count[label].keys():
-	#print label,d,str(demos_count[label][d]),str(float(demos_count[label][d])/len(np.argwhere(labels==label)))
-    #print str(len(np.argwhere(labels==label)))

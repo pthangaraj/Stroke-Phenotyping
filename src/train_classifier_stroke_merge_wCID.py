@@ -1,6 +1,7 @@
 #By Phyllis Thangaraj (pt2281@columbia.edu), Nicholas Tatonetti Lab at Columbia University Irving Medical Center
 #Part of manuscript: "Comparative analysis, applications, and interpretation of electronic health record-based stroke phenotyping methods"  
 #adapted from Tal Lorberbaum's ipython notebook code
+#This script makes the training set matrix for given model, takes case and control type as arguments
 import MySQLdb
 from collections import defaultdict
 import sys
@@ -25,16 +26,12 @@ import pickle
 import time
 import datetime
 from datetime import date
-#import keras
-#from keras.models import Sequential
-#from keras.layers import Dense
 
 case=sys.argv[1]
 control=sys.argv[2]
-#lvl=sys.argv[3]
 def credential():
-        '''import login and passwrd from credential text file'''
-        reader=csv.reader(open('mycnf.csv'),delimiter = ",")
+        '''import login and password from credential text file'''
+        reader=csv.reader(open({credentials_filename}),delimiter = ",")
         for login, password in reader:
                         login=login
                         passwd=password
@@ -43,7 +40,7 @@ def credential():
 
 login,passwd=credential()
 print "first entrance to mysql", datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-db = MySQLdb.connect(host='127.0.0.1', user ='%s' % (login), passwd='%s' % (passwd), db='clinical_gm', port=3307)
+db = MySQLdb.connect(host={host}, user ='%s' % (login), passwd='%s' % (passwd), db={database name}, port={port})
 c = db.cursor()
 #first set the 
 if case=='G':
