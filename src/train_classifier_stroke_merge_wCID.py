@@ -43,7 +43,7 @@ print "first entrance to mysql", datetime.datetime.fromtimestamp(time.time()).st
 db = MySQLdb.connect(host={host}, user ='%s' % (login), passwd='%s' % (passwd), db={database name}, port={port})
 c = db.cursor()
 #first set the 
-if case=='G':
+if case=='S':
     SQLsCa = '''from {Stroke Service Training Table}'''
 elif case == 'T':
     SQLsCa = '''from {Tirschwell criteria Table}  where person_id not in (select person_id from {Stroke Service Testing Table}) order by rand() limit 8000'''
@@ -101,7 +101,7 @@ print len(neg_cont), len(pos_cont),  len(mrn2label)
 
 mrns=neg_cont+pos_cont
 #save training person_ids
-filename_mrns={insert filename}+case+control+".npy"
+filename_mrns={training_set_pids_filename}+case+control+".npy"
 np.save(filename_mrns,mrns)
 print "get cohorts", datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 # Obtain time-ordered Dx codes and dates for each patient, excluding all codes used
@@ -256,11 +256,11 @@ for mcount, mrn in enumerate(mrn2dx):
     rows.append(row)
 print '\n', len(mrn2dx),len(rows)
 matrix_arr = csr_matrix(rows)
-filename_mtrain={insert filename} + case + control + '.npz'
+filename_mtrain={training_set_matrix_filename} + case + control + '.npz'
 sp.sparse.save_npz(filename_mtrain, matrix_arr)
-filename_labels={insert filename} + case + control + '.npy'
+filename_labels={training_set labels_filename}} + case + control + '.npy'
 np.save(filename_labels,labels)
-filename_mrn2label={insert filename} + case + control + '.npy'
+filename_mrn2label={training_mrn2labels_filename} + case + control + '.npy'
 np.save(filename_mrn2label, mrn2label_final)
 filename_e2i={insert filename}+case+control+'.npy'
 np.save(filename_e2i,e2i)
